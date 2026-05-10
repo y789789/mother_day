@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>给妈妈的礼物</title>
+    <style>
+        body {
+            margin: 0; padding: 0;
+            background-color: #000;
+            color: #ffb6c1;
+            font-family: 'Microsoft YaHei', sans-serif;
+            display: flex; flex-direction: column;
+            justify-content: center; align-items: center;
+            height: 100vh; overflow: hidden;
+        }
+        #text-container {
+            font-size: 24px; text-align: center; margin-bottom: 20px;
+            min-height: 60px;
+        }
+        .heart-container {
+            display: none; /* 初始隐藏 */
+            position: relative;
+            animation: beat 1s infinite;
+        }
+        .heart {
+            color: #ff3366; font-size: 150px;
+            text-shadow: 0 0 20px #ff3366;
+        }
+        .heart-text {
+            position: absolute; top: 40%; left: 50%;
+            transform: translate(-50%, -50%);
+            color: white; font-size: 20px; font-weight: bold;
+            white-space: nowrap;
+        }
+        @keyframes beat {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="text-container"></div>
+    
+    <div class="heart-container" id="heart-box">
+        <!-- 这里用一个巨大的心形符号代替复杂的代码，效果非常好 -->
+        <div class="heart">❤</div>
+        <div class="heart-text">母亲节快乐</div>
+    </div>
+
+    <script>
+        // 你想对妈妈说的话
+        const messages = [
+            "妈妈，",
+            "您辛苦了！",
+            "愿你健康常伴",
+            "我爱你！"
+        ];
+        
+        const textContainer = document.getElementById('text-container');
+        const heartBox = document.getElementById('heart-box');
+        let msgIndex = 0;
+
+        function typeWriter(text, i, cb) {
+            if (i < text.length) {
+                textContainer.innerHTML = text.substring(0, i+1);
+                setTimeout(() => typeWriter(text, i + 1, cb), 150); // 打字速度
+            } else {
+                setTimeout(cb, 1500); // 每句话停留时间
+            }
+        }
+
+        function nextMessage() {
+            if (msgIndex < messages.length) {
+                typeWriter(messages[msgIndex], 0, nextMessage);
+                msgIndex++;
+            } else {
+                // 文字播放完，隐藏文字，显示爱心
+                textContainer.style.display = 'none';
+                heartBox.style.display = 'block';
+            }
+        }
+
+        // 开始动画
+        nextMessage();
+    </script>
+</body>
+</html>
